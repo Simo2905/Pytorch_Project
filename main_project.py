@@ -39,3 +39,20 @@ plt.legend()
 
 # =============================================================================================================================
 
+# However, the neural network example shown above cannot handle complex tasks because it is purely a linear function. 
+# That is why we will now look at how to handle more complex situations
+
+torch.manual_seed(42)
+model = torch.nn.Sequential(
+    torch.nn.Linear(1,10),    # It is essential that the inputs of the inner layers match the outputs of the previous layer, unless it is the last layer
+    torch.ReLU(),
+    torch.nn.Linear(10,10),
+    torch.ReLu(),
+    torch.nn.Linear(10,1)
+ )                           # This calculates a simple linear function with W and Bias 
+                             # Changing W alters the slope of the line; changing B alters its position
+                             # The numbers represent the number of inputs and outputs; the number of outputs corresponds to the number of neurons
+
+loss = torch.nn.MSELoss      # I create the loss function to calculate the error; for this regression problem, I use MSE (Mean Squared Error)
+optimizer = torch.optim.Adam(model.parameters(), lr = 0.1) # After calculating the loss function, the gradients of each parameter are calculated; the larger the gradient, the greater the parameter's impact on the error
+model(x)
